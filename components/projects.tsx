@@ -10,27 +10,36 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
 export default function Projects() {
-  // Placeholder projects - Replace with your actual projects
   const projects = [
     {
-      title: "Project One",
+      title: "DataOps Assistant",
+      subtitle: "SQL ETL Co-Pilot",
       description:
-        "A full-stack web application built with Next.js and TypeScript. Features include user authentication, real-time updates, and responsive design.",
-      link: "https://github.com/yourusername/project-one",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+        "An intelligent MLOps platform for automating ETL pipelines. Leverages LLM-powered code generation to streamline pipeline creation, testing, and scheduling. Features include automated validation, Docker orchestration, Airflow scheduling, and MinIO storage integration.",
+      link: "https://github.com/zafrirdotan/Dataops-Assistant",
+      tags: [
+        "Python",
+        "FastAPI",
+        "Airflow",
+        "Docker",
+        "PostgreSQL",
+        "MinIO",
+        "LLM",
+      ],
     },
     {
-      title: "Project Two",
+      title: "AI Application",
+      subtitle: "Chat, Supermarket Assistant & Test Creator",
       description:
-        "An e-commerce platform with payment integration and inventory management. Built with modern React patterns and best practices.",
-      link: "https://github.com/yourusername/project-two",
-      tags: ["React", "Node.js", "MongoDB"],
+        "A practice project for testing and exploring AI engineering concepts. Full-stack application featuring an AI-driven chatbot, an intelligent supermarket cart assistant that processes natural language requests, and automated test generation capabilities using OpenAI's GPT model.",
+      link: "https://github.com/zafrirdotan/AI-App",
+      tags: ["Nest.js", "Angular", "OpenAI", "TypeScript", "AI"],
     },
     {
       title: "Project Three",
       description:
         "A mobile-first progressive web app for task management. Includes offline support, push notifications, and data synchronization.",
-      link: "https://github.com/yourusername/project-three",
+      link: "https://github.com/zafrirdotan/project-three",
       tags: ["PWA", "React", "Firebase"],
     },
   ];
@@ -47,6 +56,11 @@ export default function Projects() {
             <Card key={index} className="flex flex-col">
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
+                {project.subtitle && (
+                  <p className="text-lg font-semibold text-foreground mt-1">
+                    {project.subtitle}
+                  </p>
+                )}
                 <CardDescription className="flex flex-wrap gap-2 mt-2">
                   {project.tags.map((tag, tagIndex) => (
                     <span
