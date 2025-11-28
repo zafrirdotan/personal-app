@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 
 interface TypewriterProps {
   text: string;
   delay?: number;
   speed?: number;
   className?: string;
+  children?: ReactNode;
 }
 
 export function Typewriter({
@@ -14,6 +15,7 @@ export function Typewriter({
   delay = 0,
   speed = 100,
   className = "",
+  children,
 }: TypewriterProps) {
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,6 +44,7 @@ export function Typewriter({
 
   return (
     <span className={className}>
+      {children}
       {displayText}
       {isStarted && currentIndex < text.length && (
         <span className="animate-pulse">|</span>

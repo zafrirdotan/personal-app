@@ -64,7 +64,7 @@
     overflow: hidden;
     border-right: 0.15em solid;
     white-space: nowrap;
-    animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    animation: typing 1.5s steps(40, end), blink-caret 0.75s step-end infinite;
   }
 
   @keyframes typing {
