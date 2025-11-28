@@ -9,7 +9,12 @@ interface TypewriterProps {
   className?: string;
 }
 
-export function Typewriter({ text, delay = 0, speed = 100, className = "" }: TypewriterProps) {
+export function Typewriter({
+  text,
+  delay = 0,
+  speed = 100,
+  className = "",
+}: TypewriterProps) {
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
@@ -27,8 +32,8 @@ export function Typewriter({ text, delay = 0, speed = 100, className = "" }: Typ
 
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
+        setDisplayText((prev) => prev + text[currentIndex]);
+        setCurrentIndex((prev) => prev + 1);
       }, speed);
 
       return () => clearTimeout(timeout);
