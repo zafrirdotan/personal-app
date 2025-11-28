@@ -23,6 +23,12 @@ export default function Navigation() {
             >
               Projects
             </Link>
+            <Link
+              href="#experience"
+              className="hover:text-primary transition-colors"
+            >
+              Experience
+            </Link>
           </div>
         </div>
       </div>
