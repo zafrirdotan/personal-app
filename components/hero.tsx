@@ -3,6 +3,29 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Typewriter } from "@/components/typewriter";
+import { useState, useEffect } from "react";
+
+function BorgMessage() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    // 50% chance to show Borg message
+    const isBorg = Math.random() < 0.5;
+    setMessage(
+      isBorg
+        ? "🤖 You will be assimilated. Resistance is futile."
+        : "✅ I'm not a robot, but I do work with them"
+    );
+  }, []);
+
+  if (!message) return null;
+
+  return (
+    <p className="text-base md:text-lg italic text-muted-foreground/80 flex items-center justify-center md:justify-start gap-2">
+      <Typewriter text={message} delay={4500} speed={50} />
+    </p>
+  );
+}
 
 export default function Hero() {
   return (
@@ -41,13 +64,7 @@ export default function Hero() {
               </p>
             </div>
             <div className="h-[2rem] mb-6">
-              <p className="text-base md:text-lg italic text-muted-foreground/80 flex items-center justify-center md:justify-start gap-2">
-                <Typewriter
-                  text="✅ I'm not a robot, but I do work with them"
-                  delay={4500}
-                  speed={50}
-                ></Typewriter>
-              </p>
+              <BorgMessage />
             </div>
             <div className="flex gap-4 justify-center md:justify-start">
               <Button size="lg">Get In Touch</Button>
