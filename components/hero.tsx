@@ -34,14 +34,14 @@ export default function Hero() {
             <div className="h-[2rem] md:h-[2.25rem] mb-3">
               <p className="text-xl md:text-2xl text-muted-foreground">
                 <Typewriter
-                  text="Full Stack Developer | Tech Enthusiast"
+                  text="Full Stack Developer"
                   delay={2500}
                   speed={60}
                 />
               </p>
             </div>
-            <div className="h-[1.75rem] mb-6">
-              <p className="text-lg italic text-muted-foreground/80 flex items-center justify-center md:justify-start gap-2">
+            <div className="h-[2rem] mb-6">
+              <p className="text-base md:text-lg italic text-muted-foreground/80 flex items-center justify-center md:justify-start gap-2">
                 <Typewriter
                   text="✅ I'm not a robot, but I do work with them"
                   delay={4500}
