@@ -64,6 +64,7 @@ export default function Hero() {
               src="/profile.jpeg"
               alt="Zafrir Dotan"
               fill
+              sizes="(max-width: 768px) 192px, 256px"
               className="object-cover"
               priority
             />
