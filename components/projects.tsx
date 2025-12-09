@@ -36,11 +36,20 @@ export default function Projects() {
       tags: ["Nest.js", "Angular", "OpenAI", "TypeScript", "AI"],
     },
     {
-      title: "Project Three",
+      title: "Microservice Starter",
+      subtitle: "Production-Ready Template",
       description:
-        "A mobile-first progressive web app for task management. Includes offline support, push notifications, and data synchronization.",
-      link: "https://github.com/zafrirdotan/project-three",
-      tags: ["PWA", "React", "Firebase"],
+        "A comprehensive microservice starter template featuring Docker Compose orchestration, event-driven architecture with Kafka, PostgreSQL database, Redis caching, and complete observability with ELK stack (Elasticsearch, Logstash, Kibana). Includes health checks, API gateway patterns, and production-ready configurations.",
+      link: "https://github.com/zafrirdotan/microservice-starter",
+      tags: [
+        "Node.js",
+        "Docker",
+        "Kafka",
+        "PostgreSQL",
+        "Redis",
+        "ELK",
+        "Microservices",
+      ],
     },
   ];
 
