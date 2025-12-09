@@ -28,8 +28,35 @@ function BorgMessage() {
 }
 
 export default function Hero() {
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Calculate opacity based on scroll position
+      // Hero fades out as you scroll down
+      const scrollY = window.scrollY;
+      const fadeStart = 0;
+      const fadeEnd = 400; // Adjust this value to control fade duration
+
+      if (scrollY <= fadeStart) {
+        setOpacity(1);
+      } else if (scrollY >= fadeEnd) {
+        setOpacity(0);
+      } else {
+        const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+        setOpacity(1 - fadeProgress);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <section className="pt-32 pb-20 px-4">
+    <section
+      className="pt-32 pb-20 px-4 transition-opacity duration-100"
+      style={{ opacity }}
+    >
       <div className="container mx-auto max-w-5xl">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 h-[500px] md:h-[400px]">
           <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary shadow-xl flex-shrink-0">

@@ -1,14 +1,44 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navigation() {
+  const [imageOpacity, setImageOpacity] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const fadeStart = 0;
+      const fadeEnd = 400; // Same as hero fade duration
+
+      // Calculate image opacity to match hero fade
+      if (scrollY <= fadeStart) {
+        setImageOpacity(0);
+      } else if (scrollY >= fadeEnd) {
+        setImageOpacity(1);
+      } else {
+        const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+        setImageOpacity(fadeProgress);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
-      <div className="container mx-auto px-4 py-4">
+      <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold">
-            Zafrir Dotan
+          <Link href="/" className="flex items-center gap-3">
+            <img
+              src="/profile.jpeg"
+              alt="Zafrir Dotan"
+              className="w-10 h-10 rounded-full object-cover transition-opacity duration-100"
+              style={{ opacity: imageOpacity }}
+            />
+            <span className="text-xl font-bold">Zafrir Dotan</span>
           </Link>
           <div className="flex gap-6">
             <Link
