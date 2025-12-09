@@ -37,16 +37,28 @@ export default function Navigation() {
         <div className="flex justify-between items-center">
           <Link
             href="/"
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 relative"
             onClick={closeMenu}
           >
             <img
               src="/profile.jpeg"
               alt="Zafrir Dotan"
-              className="w-10 h-10 rounded-full object-cover transition-opacity duration-100"
-              style={{ opacity: imageOpacity }}
+              className="w-10 h-10 rounded-full object-cover transition-all duration-300"
+              style={{
+                opacity: imageOpacity,
+                transform:
+                  imageOpacity > 0 ? "translateX(0)" : "translateX(-40px)",
+              }}
             />
-            <span className="text-xl font-bold">Zafrir Dotan</span>
+            <span
+              className="text-xl font-bold transition-transform duration-300"
+              style={{
+                transform:
+                  imageOpacity > 0 ? "translateX(0)" : "translateX(-52px)",
+              }}
+            >
+              Zafrir Dotan
+            </span>
           </Link>
 
           {/* Desktop Menu */}
