@@ -85,4 +85,236 @@
       border-color: currentColor;
     }
   }
+
+  /* Glitch effect for image with blinking */
+  @keyframes glitch {
+    0%,
+    100% {
+      transform: translate(0);
+      filter: hue-rotate(0deg);
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+    5% {
+      opacity: 0;
+    }
+    8% {
+      opacity: 1;
+      transform: translate(-3px, 3px);
+      filter: hue-rotate(90deg);
+      clip-path: inset(10% 0 30% 0);
+    }
+    15% {
+      opacity: 0;
+    }
+    18% {
+      opacity: 1;
+      transform: translate(3px, -3px);
+      filter: hue-rotate(180deg);
+      clip-path: inset(40% 0 20% 0);
+    }
+    28% {
+      opacity: 1;
+      transform: translate(-2px, -2px);
+      filter: hue-rotate(270deg);
+      clip-path: inset(60% 0 10% 0);
+    }
+    35% {
+      opacity: 0;
+    }
+    38% {
+      opacity: 1;
+      transform: translate(2px, 2px);
+      filter: hue-rotate(360deg);
+      clip-path: inset(5% 0 70% 0);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(-3px, 1px);
+      filter: brightness(1.5) contrast(1.5);
+      clip-path: inset(25% 0 45% 0);
+    }
+    58% {
+      opacity: 0;
+    }
+    62% {
+      opacity: 1;
+      transform: translate(1px, -2px);
+      filter: hue-rotate(45deg);
+      clip-path: inset(50% 0 15% 0);
+    }
+    75% {
+      opacity: 1;
+      transform: translate(-1px, 2px);
+      filter: hue-rotate(135deg);
+      clip-path: inset(35% 0 55% 0);
+    }
+  }
+
+  @keyframes glitchLine1 {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    10% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    20% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    30% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glitchLine2 {
+    0%,
+    20% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    30% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    40% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glitchLine3 {
+    0%,
+    40% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    60% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    70% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .glitch-effect {
+    animation: glitch 0.8s ease-in-out;
+    position: relative;
+  }
+
+  .glitch-effect::before,
+  .glitch-effect::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .glitch-effect::before {
+    top: 25%;
+    animation: glitchLine1 0.8s ease-in-out;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  }
+
+  .glitch-effect::after {
+    top: 65%;
+    animation: glitchLine2 0.8s ease-in-out;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  }
+
+  /* CRT TV static noise effect */
+  @keyframes staticNoise {
+    0%,
+    100% {
+      background-position: 0% 0%;
+    }
+    10% {
+      background-position: 5% -5%;
+    }
+    20% {
+      background-position: -3% 8%;
+    }
+    30% {
+      background-position: 7% -2%;
+    }
+    40% {
+      background-position: -5% 5%;
+    }
+    50% {
+      background-position: 3% -7%;
+    }
+    60% {
+      background-position: -7% 3%;
+    }
+    70% {
+      background-position: 5% -5%;
+    }
+    80% {
+      background-position: -2% 7%;
+    }
+    90% {
+      background-position: 6% -3%;
+    }
+  }
+
+  .tv-static {
+    position: relative;
+  }
+
+  .tv-static::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 1px,
+        rgba(255, 255, 255, 0.03) 1px,
+        rgba(255, 255, 255, 0.03) 2px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 1px,
+        rgba(255, 255, 255, 0.03) 1px,
+        rgba(255, 255, 255, 0.03) 2px
+      );
+    background-size: 100% 100%;
+    pointer-events: none;
+    opacity: 0.4;
+    animation: staticNoise 0.2s infinite;
+    z-index: 5;
+  }
 }
