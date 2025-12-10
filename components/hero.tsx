@@ -155,7 +155,9 @@ export default function Hero() {
                 showButtons ? "opacity-100" : "opacity-0"
               }`}
             >
-              <Button size="lg">Get In Touch</Button>
+              <Button size="lg" asChild>
+                <a href="#contact">Get In Touch</a>
+              </Button>
               <Button variant="outline" size="lg">
                 View Resume
               </Button>

@@ -81,6 +81,12 @@ export default function Navigation() {
             >
               Experience
             </Link>
+            <Link
+              href="#contact"
+              className="hover:text-primary transition-colors"
+            >
+              Contact
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -116,6 +122,13 @@ export default function Navigation() {
               onClick={closeMenu}
             >
               Experience
+            </Link>
+            <Link
+              href="#contact"
+              className="hover:text-primary transition-colors px-2 py-1"
+              onClick={closeMenu}
+            >
+              Contact
             </Link>
           </div>
         )}
