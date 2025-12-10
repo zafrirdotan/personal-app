@@ -8,39 +8,58 @@ import { useState, useEffect } from "react";
 export default function Hero() {
   const [isGlitching, setIsGlitching] = useState(false);
   const [showBorg, setShowBorg] = useState(false);
-  const [showBorgTitle, setShowBorgTitle] = useState(false);
+  const [showBorgText, setShowBorgText] = useState(false);
+  const [showJustKidding, setShowJustKidding] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
-    // Borg animation
-    // 0-3500ms: Hi I'm Zafrir Dotan + Full Stack Developer (regular image)
-    // 3500ms: Start glitch
+    // Borg animation sequence
+    // 0-6600ms: Zafrir Dotan + Senior Full-Stack text typing
+    // 6600ms: Start glitch
     setTimeout(() => {
       setIsGlitching(true);
-    }, 3500);
+    }, 6600);
 
-    // 4500ms: Show Locutus image, end glitch
+    // 7600ms: Show Locutus image and text, end glitch
     setTimeout(() => {
       setShowBorg(true);
+      setShowBorgText(true);
       setIsGlitching(false);
-    }, 4500);
+    }, 7600);
 
-    // 5000ms: Show Borg title text
+    // 13600ms: Hide Borg text, start glitch back
     setTimeout(() => {
-      setShowBorgTitle(true);
-    }, 5000);
+      setShowBorgText(false);
+      setIsGlitching(true);
+    }, 13600);
 
-    // 8000ms: Back to regular (stay 3 seconds: 5000-8000ms)
+    // 14600ms: Back to regular image and show "Just kidding..."
     setTimeout(() => {
+      setIsGlitching(false);
       setShowBorg(false);
-      setShowBorgTitle(false);
-    }, 8000);
+      setShowJustKidding(true);
+    }, 14600);
 
-    // Scroll fade effect
+    // 19000ms: Show buttons (2 seconds after "Just kidding" finishes typing)
+    // "Just kidding..." = 59 chars * 80ms = 4720ms, starts at 14600ms = finishes ~19320ms
+    setTimeout(() => {
+      setShowButtons(true);
+    }, 19000);
+
+    // Scroll fade effect and text change detection
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const fadeStart = 0;
       const fadeEnd = 400;
+
+      // Change text after scrolling down
+      if (scrollY > 50 && !hasScrolled) {
+        setHasScrolled(true);
+      } else if (scrollY <= 50 && hasScrolled) {
+        setHasScrolled(false);
+      }
 
       if (scrollY <= fadeStart) {
         setOpacity(1);
@@ -70,7 +89,7 @@ export default function Hero() {
               fill
               sizes="(max-width: 768px) 192px, 256px"
               className={`object-cover transition-opacity duration-200 ${
-                isGlitching ? "glitch-effect" : ""
+                isGlitching && !showBorg ? "glitch-effect" : ""
               } ${showBorg ? "opacity-0" : "opacity-100"}`}
               priority
             />
@@ -80,14 +99,16 @@ export default function Hero() {
                   src="/locutus.png"
                   alt="Locutus of Borg"
                   fill
-                  className="object-cover"
+                  className={`object-cover ${
+                    isGlitching ? "glitch-effect" : "borg-eye-open"
+                  }`}
                 />
               </div>
             )}
           </div>
 
           <div className="flex-1 text-center md:text-left ">
-            <div className="h-[4.5rem] md:h-[5rem] lg:h-[5rem] mb-2">
+            <div className="h-[3.5rem] md:h-[5rem] lg:h-[5rem] mb-2">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
                 <Typewriter
                   text="Zafrir Dotan"
@@ -100,7 +121,7 @@ export default function Hero() {
             <div className="h-[2rem] md:h-[2.25rem] mb-3">
               <p className="text-xl md:text-2xl text-muted-foreground">
                 <Typewriter
-                  text="Full Stack Developer"
+                  text="Senior Full-Stack and MLOps Engineer | AI Integration"
                   delay={1800}
                   speed={80}
                 />
@@ -108,22 +129,32 @@ export default function Hero() {
             </div>
             <div className="h-[2rem] mb-6">
               <p className="text-base md:text-lg italic text-muted-foreground/80 flex items-center justify-center md:justify-start gap-2">
-                {!showBorgTitle ? (
+                {showBorgText && (
                   <Typewriter
-                    text="✅ I'm not a robot, but I do work with them"
-                    delay={5000}
-                    speed={80}
-                  />
-                ) : (
-                  <Typewriter
-                    text="You will be assimilated, Resistance is futile"
-                    delay={3500}
+                    text="You will be assimilated, Resistance is futile..."
+                    delay={0}
                     speed={80}
                   />
                 )}
+                {showJustKidding &&
+                  (hasScrolled ? (
+                    <span>
+                      I&apos;m not a robot, but I do work with them 🤖
+                    </span>
+                  ) : (
+                    <Typewriter
+                      text="Just kidding, I'm not a robot, but I do work with them 🤖"
+                      delay={0}
+                      speed={80}
+                    />
+                  ))}
               </p>
             </div>
-            <div className="flex gap-4 justify-center md:justify-start">
+            <div
+              className={`flex gap-4 justify-center md:justify-start transition-opacity duration-1000 ${
+                showButtons ? "opacity-100" : "opacity-0"
+              }`}
+            >
               <Button size="lg">Get In Touch</Button>
               <Button variant="outline" size="lg">
                 View Resume
