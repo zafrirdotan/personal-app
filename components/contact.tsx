@@ -23,9 +23,6 @@ export default function Contact() {
     setStatus("loading");
     setErrorMessage("");
 
-    console.log("Form submitted, sending request...");
-    console.log("Form data:", formData);
-
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -33,24 +30,19 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      console.log("Response status:", response.status);
       const data = await response.json();
-      console.log("Response data:", data);
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to send message");
+        setStatus("error");
+        setErrorMessage(data.error || "Failed to send message");
+        return;
       }
 
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error("Form submission error:", error);
       setStatus("error");
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Failed to send message. Please try email directly."
-      );
+      setErrorMessage("Failed to send message. Please try email directly.");
     }
   };
 
