@@ -33,7 +33,11 @@ export default function Navigation() {
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
+    <nav
+      className="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b z-50"
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link
