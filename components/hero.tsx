@@ -23,8 +23,9 @@ export default function Hero() {
       setIsGlitching(true);
     }, 6600);
 
-    // 7600ms: Show Locutus image and text, end glitch
+    // 7600ms: Switch to dark mode and show Locutus image and text, end glitch
     setTimeout(() => {
+      document.documentElement.classList.add("dark");
       setShowBorg(true);
       setShowBorgText(true);
       setIsGlitching(false);
@@ -114,7 +115,7 @@ export default function Hero() {
                 <Typewriter
                   text="Zafrir Dotan"
                   delay={800}
-                  speed={80}
+                  speed={60}
                   className="text-primary whitespace-nowrap"
                 />
               </h1>
@@ -124,7 +125,7 @@ export default function Hero() {
                 <Typewriter
                   text="Senior Full-Stack and MLOps Engineer | AI Integration"
                   delay={1800}
-                  speed={80}
+                  speed={40}
                 />
               </p>
             </div>
@@ -134,7 +135,7 @@ export default function Hero() {
                   <Typewriter
                     text="You will be assimilated, Resistance is futile..."
                     delay={0}
-                    speed={80}
+                    speed={40}
                   />
                 )}
                 {showJustKidding &&
@@ -146,7 +147,7 @@ export default function Hero() {
                     <Typewriter
                       text="Just kidding, I'm not a robot, but I do work with them 🤖"
                       delay={0}
-                      speed={80}
+                      speed={40}
                     />
                   ))}
               </p>
