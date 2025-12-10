@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Typewriter } from "@/components/typewriter";
 import { useState, useEffect } from "react";
+import { Download } from "lucide-react";
 
 export default function Hero() {
   const [isGlitching, setIsGlitching] = useState(false);
@@ -81,7 +82,7 @@ export default function Hero() {
       style={{ opacity }}
     >
       <div className="container mx-auto max-w-5xl">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 h-[500px] md:h-[400px]">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 min-h-[600px] md:h-[400px]">
           <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary shadow-xl flex-shrink-0 bg-black tv-static">
             <Image
               src="/profile.jpeg"
@@ -151,7 +152,7 @@ export default function Hero() {
               </p>
             </div>
             <div
-              className={`flex gap-4 justify-center md:justify-start transition-opacity duration-1000 mt-20 md:mt-0 ${
+              className={`flex flex-wrap gap-4 justify-center md:justify-start transition-opacity duration-1000 mt-20 md:mt-0 ${
                 showButtons ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -160,6 +161,15 @@ export default function Hero() {
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <a href="#about">View Resume</a>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <a
+                  href="/Zafrir_Dotan_Resume.pdf"
+                  download="Zafrir_Dotan_Resume.pdf"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Resume
+                </a>
               </Button>
             </div>
           </div>
