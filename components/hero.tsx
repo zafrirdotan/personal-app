@@ -25,7 +25,6 @@ export default function Hero() {
 
     // 7600ms: Switch to dark mode and show Locutus image and text, end glitch
     setTimeout(() => {
-      document.documentElement.classList.add("dark");
       setShowBorg(true);
       setShowBorgText(true);
       setIsGlitching(false);
