@@ -118,8 +118,8 @@ export default function Hero() {
                 />
               </h1>
             </div>
-            <div className="h-[2rem] md:h-[2.25rem] mb-3">
-              <p className="text-xl md:text-2xl text-muted-foreground">
+            <div className="h-[4rem] md:h-[2.25rem] mb-3">
+              <p className="text-xl md:text-2xl text-foreground/90">
                 <Typewriter
                   text="Senior Full-Stack and MLOps Engineer | AI Integration"
                   delay={1800}
@@ -128,7 +128,7 @@ export default function Hero() {
               </p>
             </div>
             <div className="h-[2rem] mb-6">
-              <p className="text-base md:text-lg italic text-muted-foreground/80 flex items-center justify-center md:justify-start gap-2">
+              <p className="text-base md:text-lg italic text-foreground/90 flex items-center justify-center md:justify-start gap-2">
                 {showBorgText && (
                   <Typewriter
                     text="You will be assimilated, Resistance is futile..."
