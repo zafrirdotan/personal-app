@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -8,8 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Projects() {
+  const { ref, isVisible } = useScrollAnimation();
   const projects = [
     {
       title: "DataOps Assistant",
@@ -54,15 +58,23 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-20 px-4">
+    <section id="projects" className="py-20 px-4" ref={ref}>
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+        <h2
+          className={`text-3xl md:text-4xl font-bold mb-12 text-center fade-in-up ${
+            isVisible ? "visible" : ""
+          }`}
+        >
           My Projects
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card key={index} className="flex flex-col">
+            <Card
+              key={index}
+              className={`flex flex-col scale-in ${isVisible ? "visible" : ""}`}
+              style={{ transitionDelay: `${index * 0.1}s` }}
+            >
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
                 {project.subtitle && (

@@ -1,14 +1,26 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function About() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section id="about" className="py-20 px-4 bg-muted/50">
+    <section id="about" className="py-20 px-4 bg-muted/50" ref={ref}>
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+        <h2
+          className={`text-3xl md:text-4xl font-bold mb-8 text-center fade-in-up ${
+            isVisible ? "visible" : ""
+          }`}
+        >
           About Me
         </h2>
 
-        <Card className="mb-8">
+        <Card
+          className={`mb-8 fade-in-up ${isVisible ? "visible" : ""}`}
+          style={{ transitionDelay: "0.1s" }}
+        >
           <CardHeader>
             <CardTitle>Bio</CardTitle>
           </CardHeader>

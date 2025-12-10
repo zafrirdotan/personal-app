@@ -1,6 +1,10 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Experience() {
+  const { ref, isVisible } = useScrollAnimation();
   const experiences = [
     {
       title: "Fullstack Developer",
@@ -60,15 +64,23 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-20 px-4">
+    <section id="experience" className="py-20 px-4" ref={ref}>
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+        <h2
+          className={`text-3xl md:text-4xl font-bold mb-12 text-center fade-in-up ${
+            isVisible ? "visible" : ""
+          }`}
+        >
           Professional Experience
         </h2>
 
         <div className="space-y-6">
           {experiences.map((exp, index) => (
-            <Card key={index}>
+            <Card
+              key={index}
+              className={`fade-in-up ${isVisible ? "visible" : ""}`}
+              style={{ transitionDelay: `${index * 0.05}s` }}
+            >
               <CardHeader>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
                   <div>

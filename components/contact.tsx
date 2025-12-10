@@ -2,34 +2,58 @@
 
 import { Mail, Phone } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Contact() {
+  const { ref, isVisible } = useScrollAnimation(0.2);
+
   return (
-    <section id="contact" className="py-20 px-6">
+    <section id="contact" className="py-20 px-6" ref={ref}>
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold mb-4 text-center">Get In Touch</h2>
-        <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+        <h2
+          className={`text-4xl font-bold mb-4 text-center fade-in-up ${
+            isVisible ? "visible" : ""
+          }`}
+        >
+          Get In Touch
+        </h2>
+        <p
+          className={`text-muted-foreground text-center mb-12 max-w-2xl mx-auto fade-in-up ${
+            isVisible ? "visible" : ""
+          }`}
+          style={{ transitionDelay: "0.1s" }}
+        >
           I'm always open to discussing new opportunities, interesting projects,
           or potential collaborations. Feel free to reach out!
         </p>
 
         <div className="grid md:grid-cols-3 gap-6">
-          <Card className="p-6 hover:shadow-lg transition-shadow">
+          <Card
+            className={`p-6 hover:shadow-lg transition-shadow scale-in ${
+              isVisible ? "visible" : ""
+            }`}
+            style={{ transitionDelay: "0.2s" }}
+          >
             <div className="flex flex-col items-center text-center space-y-3">
               <div className="p-3 bg-primary/10 rounded-full">
                 <Mail className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-semibold">Email</h3>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:zafrir.dotan@gmail.com"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                zafrir.dotan@example.com
+                zafrir.dotan@gmail.com
               </a>
             </div>
           </Card>
 
-          <Card className="p-6 hover:shadow-lg transition-shadow">
+          <Card
+            className={`p-6 hover:shadow-lg transition-shadow scale-in ${
+              isVisible ? "visible" : ""
+            }`}
+            style={{ transitionDelay: "0.3s" }}
+          >
             <div className="flex flex-col items-center text-center space-y-3">
               <div className="p-3 bg-primary/10 rounded-full">
                 <Phone className="w-6 h-6 text-primary" />
@@ -44,7 +68,12 @@ export default function Contact() {
             </div>
           </Card>
 
-          <Card className="p-6 hover:shadow-lg transition-shadow">
+          <Card
+            className={`p-6 hover:shadow-lg transition-shadow scale-in ${
+              isVisible ? "visible" : ""
+            }`}
+            style={{ transitionDelay: "0.4s" }}
+          >
             <div className="flex flex-col items-center text-center space-y-3">
               <div className="p-3 bg-primary/10 rounded-full">
                 <svg

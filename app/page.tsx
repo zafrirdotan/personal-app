@@ -3,6 +3,7 @@ import About from "@/components/about";
 import Projects from "@/components/projects";
 import Experience from "@/components/experience";
 import Contact from "@/components/contact";
+import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <Projects />
       <Experience />
       <Contact />
+      <Footer />
     </main>
   );
 }

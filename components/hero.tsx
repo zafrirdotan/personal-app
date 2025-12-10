@@ -127,7 +127,7 @@ export default function Hero() {
                 />
               </p>
             </div>
-            <div className="h-[2rem] mb-6">
+            <div className="h-[4rem] mb-6">
               <p className="text-base md:text-lg italic text-foreground/90 flex items-center justify-center md:justify-start gap-2">
                 {showBorgText && (
                   <Typewriter
@@ -151,7 +151,7 @@ export default function Hero() {
               </p>
             </div>
             <div
-              className={`flex gap-4 justify-center md:justify-start transition-opacity duration-1000 ${
+              className={`flex gap-4 justify-center md:justify-start transition-opacity duration-1000 mt-20 md:mt-0 ${
                 showButtons ? "opacity-100" : "opacity-0"
               }`}
             >
