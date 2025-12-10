@@ -158,8 +158,8 @@ export default function Hero() {
               <Button size="lg" asChild>
                 <a href="#contact">Get In Touch</a>
               </Button>
-              <Button variant="outline" size="lg">
-                View Resume
+              <Button variant="outline" size="lg" asChild>
+                <a href="#about">View Resume</a>
               </Button>
             </div>
           </div>
