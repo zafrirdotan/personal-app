@@ -23,28 +23,36 @@ const animationConfig = {
     text: "Zafrir Dotan",
     startTime: 0,
     speed: 60,
+    hideCursorAfter: 1000,
   },
   subtitle: {
     text: "Senior Full-Stack and MLOps Engineer | AI Integration",
-    startTime: 1000,
-    speed: 25,
+    startTime: 0, // Will be calculated
+    speed: 40,
+    hideCursorAfter: 1000,
   },
   borgText: {
     text: "You will be assimilated, Resistance is futile...",
     startTime: 0,
-    speed: 40,
+    speed: 50,
+    pauseAfterCharacter: 24, // Pause after "You will be assimilated"
+    pauseDuration: 700,
+    hideCursorAfter: 2500,
   },
   justKidding: {
     text: "Naaa... just kidding, I'm not a robot, but I do work with them 🤖",
     startTime: 0,
     speed: 40,
+    pauseAfterCharacter: 21, // Pause after "Naaa... just kidding,"
+    pauseDuration: 700,
+    hideCursorAfter: 500,
   },
   glitch: {
-    startTime: 3200,
+    startTime: 0,
     duration: 1000,
   },
   borgDisplay: {
-    duration: 6000,
+    duration: 3000,
   },
   justKiddingDisplay: {
     startDelay: 500,
@@ -55,11 +63,21 @@ const animationConfig = {
 };
 
 // Calculate animation timeline
+const nameTypingDuration =
+  animationConfig.name.text.length * animationConfig.name.speed +
+  animationConfig.name.hideCursorAfter;
+animationConfig.subtitle.startTime = nameTypingDuration;
+
+const subtitleTypingDuration =
+  animationConfig.subtitle.text.length * animationConfig.subtitle.speed +
+  animationConfig.subtitle.hideCursorAfter;
+const glitchStartTime =
+  animationConfig.subtitle.startTime + subtitleTypingDuration + 500; // 500ms pause after subtitle
+
 const justKiddingTypingDuration =
   animationConfig.justKidding.text.length * animationConfig.justKidding.speed;
 
-const showBorgTime =
-  animationConfig.glitch.startTime + animationConfig.glitch.duration;
+const showBorgTime = glitchStartTime + animationConfig.glitch.duration;
 const hideBorgTextTime = showBorgTime + animationConfig.borgDisplay.duration;
 const showJustKiddingTime =
   hideBorgTextTime + animationConfig.justKiddingDisplay.startDelay;
@@ -105,13 +123,13 @@ export default function Hero() {
     timeoutsRef.current.push(
       setTimeout(() => {
         setIsGlitching(true);
-      }, animationConfig.glitch.startTime)
+        setShowBorg(true);
+        setShowBorgText(true);
+      }, glitchStartTime)
     );
 
     timeoutsRef.current.push(
       setTimeout(() => {
-        setShowBorg(true);
-        setShowBorgText(true);
         setIsGlitching(false);
       }, showBorgTime)
     );
@@ -177,6 +195,7 @@ export default function Hero() {
                   text={animationConfig.name.text}
                   delay={animationConfig.name.startTime}
                   speed={animationConfig.name.speed}
+                  hideCursorAfter={animationConfig.name.hideCursorAfter}
                   className="text-primary whitespace-nowrap"
                 />
               </h1>
@@ -187,6 +206,7 @@ export default function Hero() {
                   text={animationConfig.subtitle.text}
                   delay={animationConfig.subtitle.startTime}
                   speed={animationConfig.subtitle.speed}
+                  hideCursorAfter={animationConfig.subtitle.hideCursorAfter}
                 />
               </p>
             </div>
@@ -197,6 +217,11 @@ export default function Hero() {
                     text={animationConfig.borgText.text}
                     delay={animationConfig.borgText.startTime}
                     speed={animationConfig.borgText.speed}
+                    pauseAfterCharacter={
+                      animationConfig.borgText.pauseAfterCharacter
+                    }
+                    pauseDuration={animationConfig.borgText.pauseDuration}
+                    hideCursorAfter={animationConfig.borgText.hideCursorAfter}
                   />
                 )}
                 {showJustKidding &&
