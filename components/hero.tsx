@@ -1,10 +1,71 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { Typewriter } from "@/components/typewriter";
-import { useState, useEffect } from "react";
+import { GlitchImage } from "@/components/glitch-image";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { Download } from "lucide-react";
+
+// Image configuration
+const profileImage = "/profile.jpeg";
+const borgImage = "/locutus.png";
+
+// Scroll configuration
+const scrollConfig = {
+  textChangeThreshold: 50,
+  fadeStart: 0,
+  fadeEnd: 400,
+};
+
+// Animation configuration
+const animationConfig = {
+  name: {
+    text: "Zafrir Dotan",
+    startTime: 0,
+    speed: 60,
+  },
+  subtitle: {
+    text: "Senior Full-Stack and MLOps Engineer | AI Integration",
+    startTime: 1000,
+    speed: 25,
+  },
+  borgText: {
+    text: "You will be assimilated, Resistance is futile...",
+    startTime: 0,
+    speed: 40,
+  },
+  justKidding: {
+    text: "Naaa... just kidding, I'm not a robot, but I do work with them 🤖",
+    startTime: 0,
+    speed: 40,
+  },
+  glitch: {
+    startTime: 3200,
+    duration: 1000,
+  },
+  borgDisplay: {
+    duration: 6000,
+  },
+  justKiddingDisplay: {
+    startDelay: 500,
+  },
+  buttons: {
+    startDelay: 2000,
+  },
+};
+
+// Calculate animation timeline
+const justKiddingTypingDuration =
+  animationConfig.justKidding.text.length * animationConfig.justKidding.speed;
+
+const showBorgTime =
+  animationConfig.glitch.startTime + animationConfig.glitch.duration;
+const hideBorgTextTime = showBorgTime + animationConfig.borgDisplay.duration;
+const showJustKiddingTime =
+  hideBorgTextTime + animationConfig.justKiddingDisplay.startDelay;
+const backToRegularImageTime = showJustKiddingTime + justKiddingTypingDuration;
+const showButtonsTime =
+  backToRegularImageTime + animationConfig.buttons.startDelay;
 
 export default function Hero() {
   const [isGlitching, setIsGlitching] = useState(false);
@@ -14,107 +75,108 @@ export default function Hero() {
   const [showButtons, setShowButtons] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [opacity, setOpacity] = useState(1);
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+
+  // Scroll fade effect and text change detection
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY;
+
+    // Change text after scrolling down
+    if (scrollY > scrollConfig.textChangeThreshold && !hasScrolled) {
+      setHasScrolled(true);
+    } else if (scrollY <= scrollConfig.textChangeThreshold && hasScrolled) {
+      setHasScrolled(false);
+    }
+
+    if (scrollY <= scrollConfig.fadeStart) {
+      setOpacity(1);
+    } else if (scrollY >= scrollConfig.fadeEnd) {
+      setOpacity(0);
+    } else {
+      const fadeProgress =
+        (scrollY - scrollConfig.fadeStart) /
+        (scrollConfig.fadeEnd - scrollConfig.fadeStart);
+      setOpacity(1 - fadeProgress);
+    }
+  }, [hasScrolled]);
 
   useEffect(() => {
-    // Borg animation sequence
-    // 0-6600ms: Zafrir Dotan + Senior Full-Stack text typing
-    // 6600ms: Start glitch
-    setTimeout(() => {
-      setIsGlitching(true);
-    }, 6600);
+    // Animation sequence (runs once on mount)
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        setIsGlitching(true);
+      }, animationConfig.glitch.startTime)
+    );
 
-    // 7600ms: Switch to dark mode and show Locutus image and text, end glitch
-    setTimeout(() => {
-      setShowBorg(true);
-      setShowBorgText(true);
-      setIsGlitching(false);
-    }, 7600);
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        setShowBorg(true);
+        setShowBorgText(true);
+        setIsGlitching(false);
+      }, showBorgTime)
+    );
 
-    // 13600ms: Hide Borg text, start glitch back
-    setTimeout(() => {
-      setShowBorgText(false);
-      setIsGlitching(true);
-    }, 13600);
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        setShowBorgText(false);
+        setIsGlitching(true);
+      }, hideBorgTextTime)
+    );
 
-    // 14600ms: Back to regular image and show "Just kidding..."
-    setTimeout(() => {
-      setIsGlitching(false);
-      setShowBorg(false);
-      setShowJustKidding(true);
-    }, 14600);
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        setShowJustKidding(true);
+      }, showJustKiddingTime)
+    );
 
-    // 19000ms: Show buttons (2 seconds after "Just kidding" finishes typing)
-    // "Just kidding..." = 59 chars * 80ms = 4720ms, starts at 14600ms = finishes ~19320ms
-    setTimeout(() => {
-      setShowButtons(true);
-    }, 19000);
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        setIsGlitching(false);
+        setShowBorg(false);
+      }, backToRegularImageTime)
+    );
 
-    // Scroll fade effect and text change detection
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const fadeStart = 0;
-      const fadeEnd = 400;
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        setShowButtons(true);
+      }, showButtonsTime)
+    );
 
-      // Change text after scrolling down
-      if (scrollY > 50 && !hasScrolled) {
-        setHasScrolled(true);
-      } else if (scrollY <= 50 && hasScrolled) {
-        setHasScrolled(false);
-      }
-
-      if (scrollY <= fadeStart) {
-        setOpacity(1);
-      } else if (scrollY >= fadeEnd) {
-        setOpacity(0);
-      } else {
-        const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
-        setOpacity(1 - fadeProgress);
-      }
+    return () => {
+      timeoutsRef.current.forEach(clearTimeout);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+  const sectionStyle = useMemo(() => ({ opacity }), [opacity]);
 
   return (
     <section
       className="pt-32 pb-20 px-4 transition-opacity duration-100"
-      style={{ opacity }}
+      style={sectionStyle}
     >
       <div className="container mx-auto max-w-5xl">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 min-h-[600px] md:h-[400px]">
-          <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary shadow-xl flex-shrink-0 bg-black tv-static">
-            <Image
-              src="/profile.jpeg"
-              alt="Zafrir Dotan"
-              fill
-              sizes="(max-width: 768px) 192px, 256px"
-              className={`object-cover transition-opacity duration-200 ${
-                isGlitching && !showBorg ? "glitch-effect" : ""
-              } ${showBorg ? "opacity-0" : "opacity-100"}`}
-              priority
-            />
-            {showBorg && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <Image
-                  src="/locutus.png"
-                  alt="Locutus of Borg"
-                  fill
-                  className={`object-cover ${
-                    isGlitching ? "glitch-effect" : "borg-eye-open"
-                  }`}
-                />
-              </div>
-            )}
-          </div>
+          <GlitchImage
+            showBorg={showBorg}
+            isGlitching={isGlitching}
+            profileSrc={profileImage}
+            borgSrc={borgImage}
+          />
 
           <div className="flex-1 text-center md:text-left ">
             <div className="h-[3.5rem] md:h-[5rem] lg:h-[5rem] mb-2">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
                 <Typewriter
-                  text="Zafrir Dotan"
-                  delay={800}
-                  speed={60}
+                  text={animationConfig.name.text}
+                  delay={animationConfig.name.startTime}
+                  speed={animationConfig.name.speed}
                   className="text-primary whitespace-nowrap"
                 />
               </h1>
@@ -122,9 +184,9 @@ export default function Hero() {
             <div className="h-[4rem] md:h-[2.25rem] mb-3">
               <p className="text-xl md:text-2xl text-foreground/90">
                 <Typewriter
-                  text="Senior Full-Stack and MLOps Engineer | AI Integration"
-                  delay={1800}
-                  speed={40}
+                  text={animationConfig.subtitle.text}
+                  delay={animationConfig.subtitle.startTime}
+                  speed={animationConfig.subtitle.speed}
                 />
               </p>
             </div>
@@ -132,9 +194,9 @@ export default function Hero() {
               <p className="text-base md:text-lg italic text-foreground/90 flex items-center justify-center md:justify-start gap-2">
                 {showBorgText && (
                   <Typewriter
-                    text="You will be assimilated, Resistance is futile..."
-                    delay={0}
-                    speed={40}
+                    text={animationConfig.borgText.text}
+                    delay={animationConfig.borgText.startTime}
+                    speed={animationConfig.borgText.speed}
                   />
                 )}
                 {showJustKidding &&
@@ -144,9 +206,9 @@ export default function Hero() {
                     </span>
                   ) : (
                     <Typewriter
-                      text="Just kidding, I'm not a robot, but I do work with them 🤖"
-                      delay={0}
-                      speed={40}
+                      text={animationConfig.justKidding.text}
+                      delay={animationConfig.justKidding.startTime}
+                      speed={animationConfig.justKidding.speed}
                     />
                   ))}
               </p>
