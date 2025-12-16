@@ -42,8 +42,8 @@ const animationConfig = {
   justKidding: {
     text: "Naaa... just kidding, I'm not a robot, but I do work with them 🤖",
     startTime: 0,
-    speed: 40,
-    pauseAfterCharacter: 21, // Pause after "Naaa... just kidding,"
+    speed: 50,
+    pauseAfterCharacter: 39, // Pause after "Naaa... just kidding, I'm not a robot"
     pauseDuration: 700,
     hideCursorAfter: 500,
   },
@@ -52,7 +52,7 @@ const animationConfig = {
     duration: 1000,
   },
   borgDisplay: {
-    duration: 3000,
+    duration: 4500,
   },
   justKiddingDisplay: {
     startDelay: 500,
@@ -75,7 +75,9 @@ const glitchStartTime =
   animationConfig.subtitle.startTime + subtitleTypingDuration + 500; // 500ms pause after subtitle
 
 const justKiddingTypingDuration =
-  animationConfig.justKidding.text.length * animationConfig.justKidding.speed;
+  animationConfig.justKidding.text.length * animationConfig.justKidding.speed +
+  animationConfig.justKidding.pauseDuration +
+  animationConfig.justKidding.hideCursorAfter;
 
 const showBorgTime = glitchStartTime + animationConfig.glitch.duration;
 const hideBorgTextTime = showBorgTime + animationConfig.borgDisplay.duration;
@@ -93,6 +95,7 @@ export default function Hero() {
   const [showButtons, setShowButtons] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [opacity, setOpacity] = useState(1);
+  const [allowManualGlitch, setAllowManualGlitch] = useState(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
 
   // Scroll fade effect and text change detection
@@ -102,8 +105,6 @@ export default function Hero() {
     // Change text after scrolling down
     if (scrollY > scrollConfig.textChangeThreshold && !hasScrolled) {
       setHasScrolled(true);
-    } else if (scrollY <= scrollConfig.textChangeThreshold && hasScrolled) {
-      setHasScrolled(false);
     }
 
     if (scrollY <= scrollConfig.fadeStart) {
@@ -123,9 +124,14 @@ export default function Hero() {
     timeoutsRef.current.push(
       setTimeout(() => {
         setIsGlitching(true);
+      }, glitchStartTime)
+    );
+
+    timeoutsRef.current.push(
+      setTimeout(() => {
         setShowBorg(true);
         setShowBorgText(true);
-      }, glitchStartTime)
+      }, glitchStartTime + 500)
     );
 
     timeoutsRef.current.push(
@@ -137,7 +143,6 @@ export default function Hero() {
     timeoutsRef.current.push(
       setTimeout(() => {
         setShowBorgText(false);
-        setIsGlitching(true);
       }, hideBorgTextTime)
     );
 
@@ -149,14 +154,26 @@ export default function Hero() {
 
     timeoutsRef.current.push(
       setTimeout(() => {
-        setIsGlitching(false);
-        setShowBorg(false);
+        setIsGlitching(true);
       }, backToRegularImageTime)
     );
 
     timeoutsRef.current.push(
       setTimeout(() => {
+        setShowBorg(false);
+      }, backToRegularImageTime + 500)
+    );
+
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        setIsGlitching(false);
+      }, backToRegularImageTime + 1500)
+    );
+
+    timeoutsRef.current.push(
+      setTimeout(() => {
         setShowButtons(true);
+        setAllowManualGlitch(true);
       }, showButtonsTime)
     );
 
@@ -172,7 +189,23 @@ export default function Hero() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [handleScroll]);
+
   const sectionStyle = useMemo(() => ({ opacity }), [opacity]);
+
+  const toggleBorgTransition = () => {
+    // Start glitch effect
+    setIsGlitching(true);
+
+    // After glitch, change image
+    setTimeout(() => {
+      setShowBorg(!showBorg);
+    }, 500);
+
+    // End glitch effect
+    setTimeout(() => {
+      setIsGlitching(false);
+    }, 1500);
+  };
 
   return (
     <section
@@ -186,6 +219,7 @@ export default function Hero() {
             isGlitching={isGlitching}
             profileSrc={profileImage}
             borgSrc={borgImage}
+            onClick={allowManualGlitch ? toggleBorgTransition : undefined}
           />
 
           <div className="flex-1 text-center md:text-left ">
@@ -234,6 +268,13 @@ export default function Hero() {
                       text={animationConfig.justKidding.text}
                       delay={animationConfig.justKidding.startTime}
                       speed={animationConfig.justKidding.speed}
+                      pauseAfterCharacter={
+                        animationConfig.justKidding.pauseAfterCharacter
+                      }
+                      pauseDuration={animationConfig.justKidding.pauseDuration}
+                      hideCursorAfter={
+                        animationConfig.justKidding.hideCursorAfter
+                      }
                     />
                   ))}
               </p>

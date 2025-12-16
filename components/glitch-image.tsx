@@ -10,6 +10,7 @@ interface GlitchImageProps {
   borgSrc?: string;
   alt?: string;
   borgAlt?: string;
+  onClick?: () => void;
 }
 
 export const GlitchImage = memo(function GlitchImage({
@@ -19,31 +20,37 @@ export const GlitchImage = memo(function GlitchImage({
   borgSrc = "/locutus.png",
   alt = "Zafrir Dotan",
   borgAlt = "Locutus of Borg",
+  onClick,
 }: GlitchImageProps) {
   return (
-    <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary shadow-xl flex-shrink-0 bg-black tv-static">
+    <div
+      className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary shadow-xl flex-shrink-0 bg-black tv-static"
+      onClick={onClick}
+    >
       <Image
         src={profileSrc}
         alt={alt}
         fill
         sizes="(max-width: 768px) 192px, 256px"
-        className={`object-cover transition-opacity duration-200 ${
+        className={`object-cover transition-opacity duration-700 ${
           isGlitching && !showBorg ? "glitch-effect" : ""
         } ${showBorg ? "opacity-0" : "opacity-100"}`}
         priority
       />
-      {showBorg && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <Image
-            src={borgSrc}
-            alt={borgAlt}
-            fill
-            className={`object-cover ${
-              isGlitching ? "glitch-effect" : "borg-eye-open"
-            }`}
-          />
-        </div>
-      )}
+      <div
+        className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-700 ${
+          showBorg ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <Image
+          src={borgSrc}
+          alt={borgAlt}
+          fill
+          className={`object-cover ${
+            isGlitching ? "glitch-effect" : "borg-eye-open"
+          }`}
+        />
+      </div>
     </div>
   );
 });
