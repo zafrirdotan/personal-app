@@ -146,6 +146,9 @@ export default function Projects() {
                       className="w-full rounded-lg"
                       controls
                       preload="metadata"
+                      ref={(el) => {
+                        if (el) el.playbackRate = 1.5;
+                      }}
                     >
                       <source src={project.videos[0]} />
                       Your browser does not support the video tag.
@@ -179,6 +182,9 @@ export default function Projects() {
                           className="w-full rounded-lg md:h-[428.203px] h-[240px]"
                           controls
                           preload="metadata"
+                          ref={(el) => {
+                            if (el) el.playbackRate = 1.5;
+                          }}
                         >
                           <source
                             src={project.videos.slice(1)[currentVideoIndex]}
