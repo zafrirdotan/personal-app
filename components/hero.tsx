@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Typewriter } from "@/components/typewriter";
 import { GlitchImage } from "@/components/glitch-image";
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Download } from "lucide-react";
 
 // Image configuration
@@ -169,8 +169,6 @@ export default function Hero() {
     };
   }, [handleScroll]);
 
-  const sectionStyle = useMemo(() => ({ opacity }), [opacity]);
-
   const toggleBorgTransition = () => {
     // Start glitch effect
     setIsGlitching(true);
@@ -189,7 +187,7 @@ export default function Hero() {
   return (
     <section
       className="pt-32 pb-20 px-4 transition-opacity duration-100"
-      style={sectionStyle}
+      style={{ opacity }}
     >
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 min-h-[600px] md:h-[400px]">
