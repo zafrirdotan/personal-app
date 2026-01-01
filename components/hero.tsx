@@ -19,18 +19,6 @@ const scrollConfig = {
 
 // Animation configuration
 const animationConfig = {
-  name: {
-    text: "Zafrir Dotan",
-    startTime: 0,
-    speed: 60,
-    hideCursorAfter: 1000,
-  },
-  subtitle: {
-    text: "Senior Full-Stack and MLOps Engineer | AI Integration",
-    startTime: 0, // Will be calculated
-    speed: 40,
-    hideCursorAfter: 1000,
-  },
   borgText: {
     text: "You will be assimilated, Resistance is futile...",
     startTime: 0,
@@ -40,7 +28,7 @@ const animationConfig = {
     hideCursorAfter: 2500,
   },
   justKidding: {
-    text: "Naaa... just kidding, I'm not a robot, but I do like working with them 🤖",
+    text: "Naaa... just kidding, I'm not a robot, but I do love working with them 🤖",
     startTime: 0,
     speed: 50,
     pauseAfterCharacter: 39, // Pause after "Naaa... just kidding, I'm not a robot"
@@ -63,16 +51,7 @@ const animationConfig = {
 };
 
 // Calculate animation timeline
-const nameTypingDuration =
-  animationConfig.name.text.length * animationConfig.name.speed +
-  animationConfig.name.hideCursorAfter;
-animationConfig.subtitle.startTime = nameTypingDuration;
-
-const subtitleTypingDuration =
-  animationConfig.subtitle.text.length * animationConfig.subtitle.speed +
-  animationConfig.subtitle.hideCursorAfter;
-const glitchStartTime =
-  animationConfig.subtitle.startTime + subtitleTypingDuration + 500; // 500ms pause after subtitle
+const glitchStartTime = 1500; // Start glitch after 1.5 seconds
 
 const justKiddingTypingDuration =
   animationConfig.justKidding.text.length * animationConfig.justKidding.speed +
@@ -225,12 +204,12 @@ export default function Hero() {
           <div className="flex-1 text-center md:text-left ">
             <div className="h-[3.5rem] md:h-[5rem] lg:h-[5rem] mb-2">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary whitespace-nowrap">
-                {animationConfig.name.text}
+                Zafrir Dotan
               </h1>
             </div>
             <div className="h-[4rem] md:h-[2.25rem] mb-3">
               <p className="text-xl md:text-2xl text-foreground/90">
-                {animationConfig.subtitle.text}
+                Senior Full-Stack and MLOps Engineer | AI Integration
               </p>
             </div>
             <div className="h-[4rem] mb-6">
@@ -250,7 +229,7 @@ export default function Hero() {
                 {showJustKidding &&
                   (hasScrolled ? (
                     <span>
-                      I&apos;m not a robot, but I do like working with them 🤖
+                      I&apos;m not a robot, but I do love working with them 🤖
                     </span>
                   ) : (
                     <Typewriter
