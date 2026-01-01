@@ -40,7 +40,7 @@ const animationConfig = {
     hideCursorAfter: 2500,
   },
   justKidding: {
-    text: "Naaa... just kidding, I'm not a robot, but I do work with them 🤖",
+    text: "Naaa... just kidding, I'm not a robot, but I do like working with them 🤖",
     startTime: 0,
     speed: 50,
     pauseAfterCharacter: 39, // Pause after "Naaa... just kidding, I'm not a robot"
@@ -212,7 +212,7 @@ export default function Hero() {
       className="pt-32 pb-20 px-4 transition-opacity duration-100"
       style={sectionStyle}
     >
-      <div className="container mx-auto max-w-5xl">
+      <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 min-h-[600px] md:h-[400px]">
           <GlitchImage
             showBorg={showBorg}
@@ -224,28 +224,17 @@ export default function Hero() {
 
           <div className="flex-1 text-center md:text-left ">
             <div className="h-[3.5rem] md:h-[5rem] lg:h-[5rem] mb-2">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
-                <Typewriter
-                  text={animationConfig.name.text}
-                  delay={animationConfig.name.startTime}
-                  speed={animationConfig.name.speed}
-                  hideCursorAfter={animationConfig.name.hideCursorAfter}
-                  className="text-primary whitespace-nowrap"
-                />
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary whitespace-nowrap">
+                {animationConfig.name.text}
               </h1>
             </div>
             <div className="h-[4rem] md:h-[2.25rem] mb-3">
               <p className="text-xl md:text-2xl text-foreground/90">
-                <Typewriter
-                  text={animationConfig.subtitle.text}
-                  delay={animationConfig.subtitle.startTime}
-                  speed={animationConfig.subtitle.speed}
-                  hideCursorAfter={animationConfig.subtitle.hideCursorAfter}
-                />
+                {animationConfig.subtitle.text}
               </p>
             </div>
             <div className="h-[4rem] mb-6">
-              <p className="text-base md:text-lg italic text-foreground/90 flex items-center justify-center md:justify-start gap-2">
+              <p className="text-base md:text-lg italic text-foreground/90 flex text-left pl-2 md:justify-start gap-2">
                 {showBorgText && (
                   <Typewriter
                     text={animationConfig.borgText.text}
@@ -261,7 +250,7 @@ export default function Hero() {
                 {showJustKidding &&
                   (hasScrolled ? (
                     <span>
-                      I&apos;m not a robot, but I do work with them 🤖
+                      I&apos;m not a robot, but I do like working with them 🤖
                     </span>
                   ) : (
                     <Typewriter
