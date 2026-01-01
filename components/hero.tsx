@@ -210,6 +210,12 @@ export default function Hero() {
                 Senior Full-Stack and MLOps Engineer | AI Integration
               </p>
             </div>
+            <div className="mb-6">
+              <p className="text-base md:text-lg text-muted-foreground mb-4">
+                I build AI-assisted data pipelines that automate ETL workflows
+                from raw data to analytics-ready storage.
+              </p>
+            </div>
             <div className="h-[4rem] mb-6">
               <p className="text-base md:text-lg italic text-foreground/90 flex text-left pl-2 md:justify-start gap-2">
                 {showBorgText && (
