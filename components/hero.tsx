@@ -7,7 +7,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Download } from "lucide-react";
 
 // Image configuration
-const profileImage = "/profile.jpeg";
+const profileImage = "/profile.png";
 const borgImage = "/locutus.png";
 
 // Scroll configuration

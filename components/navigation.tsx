@@ -46,7 +46,7 @@ export default function Navigation() {
             onClick={closeMenu}
           >
             <img
-              src="/profile.jpeg"
+              src="/profile.png"
               alt="Zafrir Dotan"
               className="w-10 h-10 rounded-full object-cover transition-all duration-300"
               style={{
