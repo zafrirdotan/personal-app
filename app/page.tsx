@@ -1,4 +1,5 @@
 import Hero from "@/components/hero";
+import FeaturedProject from "@/components/featured-project";
 import About from "@/components/about";
 import Projects from "@/components/projects";
 import Experience from "@/components/experience";
@@ -11,6 +12,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navigation />
       <Hero />
+      <FeaturedProject />
       <About />
       <Projects />
       <Experience />

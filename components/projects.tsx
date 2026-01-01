@@ -59,10 +59,10 @@ export default function Projects() {
 
   const projects = [
     {
-      title: "DataOps Assistant",
-      subtitle: "SQL ETL Co-Pilot",
+      title: "AI-Assisted ETL Pipeline Generator",
+      subtitle: "From raw data to analytics-ready storage",
       description:
-        "An intelligent MLOps platform for automating ETL pipelines. Leverages LLM-powered code generation to streamline pipeline creation, testing, and scheduling. Features include automated validation, Docker orchestration, Airflow scheduling, and MinIO storage integration.",
+        "An AI-assisted system that creates, validates, and executes ETL pipelines from CSV, JSON, and PostgreSQL sources into PostgreSQL, SQLite, CSV, and Parquet outputs. Pipelines are generated with transformations and validations, executed in Dockerized runners, and scheduled for repeatable daily runs.",
       link: "https://github.com/zafrirdotan/Dataops-Assistant",
       videos: ["/data-ops-1.mp4", "/data-ops-2.mp4"],
       tags: [
