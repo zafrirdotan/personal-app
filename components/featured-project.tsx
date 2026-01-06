@@ -9,10 +9,15 @@ export default function FeaturedProject() {
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="flex-1 order-2 md:order-1">
+            <div className="mb-4">
+              <span className="text-sm font-semibold text-primary uppercase tracking-wide">
+                MLOps Final Project · Naya College
+              </span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               AI-Assisted ETL Pipeline Generator
             </h2>
-            <p className="text-lg font-semibold text-primary mb-3">
+            <p className="text-lg font-semibold text-muted-foreground mb-3">
               From raw data to analytics-ready storage
             </p>
             <p className="text-muted-foreground mb-4">
